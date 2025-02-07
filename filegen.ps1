@@ -44,7 +44,7 @@ if ($wybor -ieq "ldif") {
 $dnLine
 changetype: delete
 "@
-            $ldif | Out-File -FilePath $outputFile -Encoding UTF8 -Append
+            $ldif | Out-File -FilePath $outputFile -Append
             $kolejny = Read-Host "Czy chcesz usunac kolejny obiekt? (wpisz 'tak' lub 'nie')"
         } while ($kolejny -ieq "tak")
         Write-Host "Plik LDIF utworzony: $outputFile"
@@ -66,10 +66,10 @@ cn: $cn
 sn: $sn
 givenName: $givenName
 initials: $initials
-userAccountControl $userAccountControl
+userAccountControl: $userAccountControl
 sAMAccountName: $sAMAccountName
 "@
-        $ldif | Out-File -FilePath $outputFile -Encoding UTF8 -Append
+        $ldif | Out-File -FilePath $outputFile -Append
         Write-Host "Plik LDIF utworzony: $outputFile"
     }
     elseif ($akcja -ieq "add" -and $typObiektu -ieq "group") {
@@ -98,7 +98,7 @@ name: $cn
                 $kolejny = Read-Host "Czy chcesz dodac kolejnego uzytkownika? (wpisz 'tak' lub 'nie')"
             } while ($kolejny -ieq "tak")
         }
-        $ldif | Out-File -FilePath $outputFile -Encoding UTF8 -Append
+        $ldif | Out-File -FilePath $outputFile -Append
         Write-Host "Plik LDIF utworzony: $outputFile"
     }
 }
@@ -126,7 +126,7 @@ elseif ($wybor -ieq "csv") {
         $emailParts = $UserPrincipalName -split "@"
         $newUserPrincipalName = "$($emailParts[0])$i@$($emailParts[1])"
         $newLine = "$newSAMAccountName,$newName,$surname,$GivenName,$password,$newUserPrincipalName,$Description,$Company,$Department"
-        $newLine | Out-File -FilePath $csvFile -Append -Encoding UTF8
+        $newLine | Out-File -FilePath $csvFile -Append -Encoding utf8
     }
     Write-Host "Plik CSV utworzony: $csvFile"
 }
